@@ -1,0 +1,14 @@
+{
+  "name": "labecommerce-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "execute": "node index.js",
+    "exercicio": "node exercicios/process-argv.js arg1 arg2"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
