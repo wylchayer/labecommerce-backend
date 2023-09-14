@@ -34,50 +34,59 @@ export const products: TProducts[] = [
   },
 ];
 
-export const createUser = (
-  id: string,
-  firstName: string,
-  email: string,
-  password: string
-): void => {
-  const createdAt: string = new Date().toISOString();
-  console.log(`Cadastro realizado com sucesso:
-  ${id}
-  ${firstName}
-  ${email}
-  ${password}
-  ${createdAt}`);
+// USERS
+export const getUsers = (searchName: string): TUsers[] => {
+  return users.filter((user) => {
+    if (
+      searchName &&
+      user.firstName.toLowerCase().includes(searchName.toLowerCase())
+    ) {
+      return user;
+    } else if (!searchName) {
+      return users;
+    }
+  });
 };
 
-export const getAllUsers = (): TUsers[] => {
-  return users;
+export const createUser = (user: TUsers): string => {
+  const { id, firstName, email, password } = user;
+
+  const newUser: TUsers = {
+    id,
+    firstName,
+    email,
+    password,
+    createdAt: new Date().toISOString(),
+  };
+  users.push(newUser);
+
+  return "Usuário criado com sucesso!";
 };
 
-export const createProduct = (
-  id: string,
-  firstName: string,
-  price: number,
-  description: string,
-  imageUrl: string
-): void => {
-  console.log(`Produto criado com sucesso:
-  ${id}
-  ${firstName}
-  ${price}
-  ${description}
-  ${imageUrl}`);
-};
-
-export const getAllProducts = (): TProducts[] => {
-  return products;
-};
-
-export const searchProductsByName = (searchName: string): TProducts[] => {
+// PRODUCTS
+export const getProducts = (searchName: string): TProducts[] => {
   return products.filter((product) => {
-    if (product.firstName.toLowerCase().includes(searchName.toLowerCase())) {
+    if (
+      searchName &&
+      product.firstName.toLowerCase().includes(searchName.toLowerCase())
+    ) {
       return product;
     } else if (!searchName) {
       return products;
     }
   });
+};
+
+export const createProduct = (body: TProducts): string => {
+  const { id, firstName, price, description, imageUrl }: TProducts = body;
+  const newProduct: TProducts = {
+    id,
+    firstName,
+    price,
+    description,
+    imageUrl,
+  };
+  products.push(newProduct);
+
+  return "Produto criado com sucesso!";
 };
