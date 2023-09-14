@@ -3,7 +3,7 @@ export type TUsers = {
   firstName: string;
   email: string;
   password: string;
-  createdAt: string;
+  createdAt?: string;
 };
 
 export type TProducts = {
