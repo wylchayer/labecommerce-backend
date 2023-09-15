@@ -63,6 +63,34 @@ export const createUser = (user: TUsers): string => {
   return "Usuário criado com sucesso!";
 };
 
+export const deleteUser = (id: string): string => {
+  const indexDelete = users.findIndex((user) => user.id === id);
+
+  if (indexDelete >= 0) {
+    users.splice(indexDelete, 1);
+  }
+
+  return "Usuário deletado com sucesso!";
+};
+
+export const editUser = (dataEdit: TUsers): string => {
+  const { id, firstName, email, password } = dataEdit;
+  console.log(id, firstName, email, password);
+  
+  const user = users.find((user) => user.id === id);
+
+  if (user) {
+    user.firstName = firstName || user.firstName;
+    user.email = email || user.email;
+    user.password = password || user.password;
+    if (firstName || email || password) {
+      user.createdAt = new Date().toISOString()
+    }
+  }
+
+  return "Usuário editado com sucesso";
+};
+
 // PRODUCTS
 export const getProducts = (searchName: string): TProducts[] => {
   return products.filter((product) => {
@@ -89,4 +117,28 @@ export const createProduct = (body: TProducts): string => {
   products.push(newProduct);
 
   return "Produto criado com sucesso!";
+};
+
+export const deleteProduct = (id: string): string => {
+  const indexDelete = products.findIndex((product) => product.id === id);
+
+  if (indexDelete >= 0) {
+    products.splice(indexDelete, 1);
+  }
+
+  return "Produto deletado com sucesso!";
+};
+
+export const editProduct = (productEdit: TProducts): string => {
+  const {id, firstName, price, description, imageUrl} = productEdit
+  const product = products.find(product => product.id === id)
+
+  if (product) { 
+    product.firstName = firstName || product.firstName
+    product.description = description || product.description
+    product.imageUrl = imageUrl || product.imageUrl
+    product.price = isNaN(price) ? product.price : price
+  }
+
+  return "Produto editado com sucesso!";
 };
